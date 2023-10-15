@@ -1,53 +1,46 @@
 # diplom-work
 
-GET all products
+GET all students
 
 ```json
-    products: [
+    students: [
         {
             "id": 1,
-            "name": "Plesos",
-            "price": "400 man",
-            "description": "Hazirki zaman tozan sorujy",
-            "amount": 9,
-            "image": "/public/plesos.png",
-            "weight": "10kg",
-            "category": "Tech"
+            "name": "Berdi Nazarow ..wic",
+            "qr_id": 123432135678,
+            "image_url": "/public/berdi.png",
+            "role": "Hardware",
+            "diplom_id": 1
+
         },
         {
             "id": 2,
-            "name": "Malaka",
-            "price": "400 man",
-            "description": "Hazirki zaman suyt onumi",
-            "amount": 9,
-            "image": "/public/malaka.png",
-            "weight": "10kg",
-            "category": "Suyt onumi"
+            "name": "Gurban Nazarow ..wic",
+            "qr_id": 123456323178,
+            "image_url": "/public/gurban.png",
+            "role": "Software",
+            "diplom_id": 1
+
+        },
+        {
+            "id": 2,
+            "name": "Dowran Rahymow ..wic",
+            "qr_id": 123432125678,
+            "image_url": "/public/dova.png",
+            "diplom_id": 2
         }
     ]
 
 ```
 
-CATEGORY CRUD
+DIPLOM_WORK CRUD
 
 ```json
-    category: {
+    diplom: {
         "id": 1,
-        "name": "Tech"
+        "name": "Converting smell of fart into flavour of blossom",
+        "description": "This is incredible course project which can be applied in all environments just awesome!!",
+        "images": ["/public/example.png", "/public/example2.png"],
+        "expiration_date": "12.01.2000"
     }
-```
-
-GET CATEGORIES
-
-```json
-    categories: [
-        {
-            "id": 1,
-            "name": "Tech"
-        },
-         {
-            "id": 2,
-            "name": "Suyju"
-        }
-    ]
 ```
