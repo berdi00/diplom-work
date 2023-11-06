@@ -18,14 +18,14 @@ router.post('/upload', Upload, async (req, res) => {
       const imageUrls = [];
       for (const file of files) {
         const imageExtension = file.originalname.split('.').pop();
-        const imageName = `${Date.now()}.${imageExtension}`;
+        const imageName = `image_${Date.now()}.${imageExtension}`;
         const imagePath = __dirname + `./../api/static/diplomasImage/${imageName}`;
         
   
         // Resize and compress the image
-        await sharp(file.path)
-          .jpeg({ quality: 80 })
-          .toFile(imagePath);
+        // await sharp(file.path)
+        //   .jpeg({ quality: 80 })
+        //   .toFile(imagePath);
   
         // Move the original image file
         fs.renameSync(file.path, imagePath);

@@ -24,7 +24,6 @@ router.post('/upload', Upload, async (req, res) => {
         const imagePath = __dirname + `./../api/static/studentsImage/${imageName}`;
         
 
-  
         // Resize and compress the image
         await sharp(file.path)
           .jpeg({ quality: 80 })
