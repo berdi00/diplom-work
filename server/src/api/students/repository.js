@@ -3,7 +3,7 @@ const retrieveStudents = `SELECT * FROM students`
 
 const createStudent = `
     INSERT INTO students (name, qr_id, role, diplom_id) 
-        VALUES ($1, $2, $3, $4)
+        VALUES ($1, $2, $3, $4) RETURNING id
 `
 
 const retrieveStudent = `SELECT * FROM students WHERE diplom_id = $1`
@@ -16,6 +16,7 @@ const changeStudent = `UPDATE students SET name = $1, qr_id = $2, role = $3, dip
 
 const destroyStudent = `DELETE FROM students WHERE id =$1`
 
+const searchBy = "SELECT * FROM students WHERE qr_id ILIKE $1"
 
 
 module.exports = {
@@ -25,5 +26,6 @@ module.exports = {
     retrieveStudentByQrId,
     retrieveStudentHimself,
     changeStudent,
-    destroyStudent
+    destroyStudent,
+    searchBy
 }

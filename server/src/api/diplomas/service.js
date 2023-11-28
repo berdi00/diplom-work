@@ -13,9 +13,9 @@ const addDiploma = async (req, res) => {
     
     const info = req.body
 
-    await pool.query(queries.createDiploma, [info.name, info.description, info.deadline])
+    const { rows } = await pool.query(queries.createDiploma, [info.name, info.description, info.deadline])
 
-    res.sendStatus(201)
+    res.send(rows)
 }
 
 
