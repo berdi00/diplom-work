@@ -1,58 +1,60 @@
-const pool = require('../../../db')
-const queries = require('./repository')
-
+const pool = require("../../../db");
+const queries = require("./repository");
 
 const getDiplomas = async (req, res) => {
-    const { rows } = await pool.query(queries.retrieveDiplomas)
+  const { rows } = await pool.query(queries.retrieveDiplomas);
 
-    res.status(200).json({diplomas: rows})
-}
-
+  res.status(200).json({ diplomas: rows });
+};
 
 const addDiploma = async (req, res) => {
-    
-    const info = req.body
+  const info = req.body;
+  console.log(info, "info");
+  const resFromDb = await pool.query(queries.createDiploma, [
+    info.name,
+    info.description,
+    info.deadline,
+  ]);
+  console.log(resFromDb, "res");
 
-    await pool.query(queries.createDiploma, [info.name, info.description, info.deadline])
-
-    res.sendStatus(201)
-}
-
+  res.sendStatus(201);
+};
 
 const getDiploma = async (req, res) => {
-    const id = req.params.id
+  const id = req.params.id;
 
-    const { rows } = await pool.query(queries.retrieveDiploma, [id])
-    
-    res.status(200).json({diplomas: rows})
-}
+  const { rows } = await pool.query(queries.retrieveDiploma, [id]);
 
+  res.status(200).json({ diplomas: rows });
+};
 
 const updateDiploma = async (req, res) => {
+  const id = req.params.id;
 
-    const id = req.params.id
+  const info = req.body;
 
-    const info = req.body
+  await pool.query(queries.changeDiploma, [
+    info.name,
+    info.description,
+    info.deadline,
+    id,
+  ]);
 
-    await pool.query(queries.changeDiploma, [info.name, info.description, info.deadline, id])
-
-    res.sendStatus(200)
-}
-
+  res.sendStatus(200);
+};
 
 const deleteDiploma = async (req, res) => {
-    const id = req.params.id
+  const id = req.params.id;
 
-    await pool.query(queries.destroyDiploma, [id])
-    
-    res.sendStatus(200)
-}
+  await pool.query(queries.destroyDiploma, [id]);
 
+  res.sendStatus(200);
+};
 
 module.exports = {
-    getDiplomas,
-    addDiploma,
-    getDiploma,
-    updateDiploma,
-    deleteDiploma
-}
+  getDiplomas,
+  addDiploma,
+  getDiploma,
+  updateDiploma,
+  deleteDiploma,
+};
