@@ -1,22 +1,18 @@
 import React from "react";
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu } from "antd";
 import { ShopTwoTone } from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
 const { Header } = Layout;
-const CashierLayout = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+const DiplomWorkLayout = () => {
   return (
     <Layout>
       <Header
         style={{
           padding: 0,
-          background: colorBgContainer,
         }}
       >
         <Menu
-          theme="dark"
+          theme="light"
           mode="horizontal"
           defaultSelectedKeys={["/"]}
           style={{ display: "flex", justifyContent: "center" }}
@@ -24,14 +20,21 @@ const CashierLayout = () => {
             {
               key: "/",
               icon: React.createElement(ShopTwoTone),
-              label: "Önümler",
+              label: "Diploma",
+            },
+            {
+              key: "/students",
+              icon: React.createElement(ShopTwoTone),
+              label: "Student",
             },
           ]}
         />
       </Header>
-      <Outlet />
+      <div style={{ marginTop: "100px" }}>
+        <Outlet />
+      </div>
     </Layout>
   );
 };
 
-export default CashierLayout;
+export default DiplomWorkLayout;

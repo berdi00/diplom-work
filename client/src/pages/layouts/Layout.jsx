@@ -19,7 +19,7 @@ const LayoutIndex = () => {
             {
               key: "/",
               icon: React.createElement(UserOutlined),
-              label: "Kassyr",
+              label: "User",
             },
             {
               key: "/admin",
