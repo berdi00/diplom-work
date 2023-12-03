@@ -8,7 +8,19 @@ const createStudent = `
 
 const retrieveStudent = `SELECT * FROM students WHERE diplom_id = $1`
 
-const retrieveStudentByQrId = `SELECT * FROM students WHERE qr_id = $1`
+const retrieveStudentByQrId = `
+                        select 
+                            s.id, 
+                            s.name, 
+                            s.qr_id, 
+                            s.images, 
+                            s.role, 
+                            s.diplom_id, 
+                            d.name as diplom_name, 
+                            d.description, 
+                            d.images as diplom_images, 
+                            d.deadline 
+                                from students s LEFT JOIN diplomas d ON s.diplom_id = d.id WHERE s.qr_id = $1`
 
 const retrieveStudentHimself = `SELECT * FROM students WHERE id = $1`
 
