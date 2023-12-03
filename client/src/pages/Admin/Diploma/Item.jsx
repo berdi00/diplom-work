@@ -1,6 +1,7 @@
 import { Button, Form, Input, Row, DatePicker } from "antd";
 import { useParams } from "react-router-dom";
 import { useAsyncFn } from "../../../hooks/useAsync";
+import { notification } from "antd";
 import {
   createDiploma,
   getDiploma,
@@ -36,8 +37,13 @@ const Item = () => {
       method: "POST",
       body: data,
     })
-      .then(() => {
-        console.log("File Sent Successful");
+      .then((res) => {
+        if (res.ok) {
+          notification.success({
+            message: "Image Upload",
+            description: "Image Successfully Uploaded",
+          });
+        }
       })
       .catch((err) => {
         console.log(err.message);
@@ -55,9 +61,10 @@ const Item = () => {
         console.log(data);
         form.setFieldsValue({
           ...data?.diplomas[0],
-          deadline: data.diplomas[0].deadline
-            ? dayjs(data.diplomas[0].deadline)
-            : "",
+          deadline:
+            data.diplomas[0].deadline !== "Invalid Date"
+              ? dayjs(data.diplomas[0].deadline)
+              : "",
         });
       });
     }
@@ -71,13 +78,25 @@ const Item = () => {
   const onFinish = async (values) => {
     if (diplomId === "new") {
       const date = dayjs(values.deadline).format("DD.MM.YYYY");
-      await execute({ ...values, deadline: date }).then((data) =>
-        console.log(data, "create")
-      );
+      await execute({ ...values, deadline: date }).then((data) => {
+        if (data === "Created") {
+          notification.success({
+            message: "201",
+            description: "Successfully created",
+          });
+        }
+      });
     } else {
       const date1 = dayjs(values.deadline).format("DD.MM.YYYY");
       await updateDiplomaFn(diplomId, { ...values, deadline: date1 }).then(
-        (data) => console.log(data, "update")
+        (data) => {
+          if (data === "OK") {
+            notification.success({
+              message: "200",
+              description: "Successfully updated",
+            });
+          }
+        }
       );
     }
   };
@@ -108,13 +127,21 @@ const Item = () => {
         <Form.Item name="deadline">
           <DatePicker onChange={onChange} />
         </Form.Item>
-        <Form.Item>
-          <input type="file" multiple onChange={fileChangeHandler} />
-        </Form.Item>
+
+        <label className="uploadImage">
+          <input
+            accept="image/png, image/jpg, image/gif, image/jpeg"
+            style={{ display: "none" }}
+            type="file"
+            multiple
+            onChange={fileChangeHandler}
+          />
+        </label>
+
         <Form.Item>
           <Row justify="center">
-            <Button type="primary" htmlType="submit">
-              Submit
+            <Button size="large" type="primary" htmlType="submit">
+              {diplomId === "new" ? "Submit" : "Update"}
             </Button>
           </Row>
         </Form.Item>

@@ -15,7 +15,7 @@ const AdminLayout = () => {
           padding: 0,
           position: "fixed",
           width: "90%",
-          zIndex: 90000,
+          zIndex: 9000,
         }}
       >
         <Menu

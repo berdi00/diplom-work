@@ -8,12 +8,15 @@ import DiplomWorkLayout from "./pages/layouts/DiplomWorkLayout";
 import Item from "./pages/Admin/Diploma/Item";
 import Student from "./pages/Admin/Student/Index";
 import StudentItem from "./pages/Admin/Student/Item";
+import StudentDiplomas from "./pages/User";
 function App() {
   return (
     <Routes>
       <Route path="login" element={<Login />} />
       <Route path="/" element={<Layout />}>
-        <Route path="/" element={<DiplomWorkLayout />}></Route>
+        <Route path="/" element={<DiplomWorkLayout />}>
+          <Route path="/" element={<StudentDiplomas />} />
+        </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route path="diploma" element={<Diploma />} />
           <Route path=":diplomId" element={<Item />} />

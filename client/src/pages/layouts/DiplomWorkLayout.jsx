@@ -20,19 +20,13 @@ const DiplomWorkLayout = () => {
             {
               key: "/",
               icon: React.createElement(ShopTwoTone),
-              label: "Diploma",
-            },
-            {
-              key: "/students",
-              icon: React.createElement(ShopTwoTone),
-              label: "Student",
+              label: "Students' Diplomas",
             },
           ]}
         />
       </Header>
-      <div style={{ marginTop: "100px" }}>
-        <Outlet />
-      </div>
+
+      <Outlet />
     </Layout>
   );
 };

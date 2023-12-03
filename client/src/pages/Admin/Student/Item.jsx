@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Button, Form, Input, Row, Select } from "antd";
+import { Button, Form, Input, Row, Select, notification } from "antd";
 import { useEffect, useState } from "react";
 import { useAsyncFn } from "../../../hooks/useAsync";
 import {
@@ -66,9 +66,23 @@ const StudentItem = () => {
 
   const onFinish = (values) => {
     if (studentId !== "new") {
-      updateStudentFn(studentId, values).then((data) => console.log(data));
+      updateStudentFn(studentId, values).then((data) => {
+        if (data === "OK") {
+          notification.success({
+            message: "200",
+            description: "Successfully updated",
+          });
+        }
+      });
     } else {
-      execute(values).then((data) => console.log(data));
+      execute(values).then((data) => {
+        if (data === "Created") {
+          notification.success({
+            message: "201",
+            description: "Successfully created",
+          });
+        }
+      });
     }
   };
 
@@ -113,12 +127,18 @@ const StudentItem = () => {
             options={keyValued}
           />
         </Form.Item>
-        <Form.Item>
-          <input type="file" onChange={fileChangeHandler} />
-        </Form.Item>
+        <label className="uploadImage">
+          <input
+            accept="image/png, image/jpg, image/gif, image/jpeg"
+            style={{ display: "none" }}
+            type="file"
+            multiple
+            onChange={fileChangeHandler}
+          />
+        </label>
         <Form.Item>
           <Row justify="center">
-            <Button type="primary" htmlType="submit">
+            <Button size="large" type="primary" htmlType="submit">
               {studentId === "new" ? "Submit" : "Update"}
             </Button>
           </Row>
