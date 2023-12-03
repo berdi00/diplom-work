@@ -2,7 +2,7 @@
 const retrieveDiplomas = `SELECT * FROM diplomas`
 
 const createDiploma = `
-    INSERT INTO diplomas (name, description, deadline) VALUES ($1, $2, $3)
+    INSERT INTO diplomas (name, description, deadline) VALUES ($1, $2, $3) RETURNING id
 `
 
 const retrieveDiploma = `SELECT * FROM diplomas WHERE id = $1`
