@@ -1,51 +1,53 @@
-const { Router } = require('express')
-const router = Router()
-const sharp = require('sharp')
-const pool = require('../../db')
-const fs = require('fs')
+const { Router } = require("express");
+const router = Router();
+const pool = require("../../db");
+const fs = require("fs");
+const path = require("path");
+const Upload = require("../middlewares/uploadDiplomas");
 
-const Upload = require('../middlewares/uploadDiplomas')
+router.post("/upload/:id", Upload, async (req, res) => {
+  const { files } = req;
+  const id = req.params.id;
+  // console.log(files, "files");
+  // console.log(id);
 
+  try {
+    // Store the image URLs in separate arrays
+    const imageUrls = [];
+    for (const file of files) {
+      console.log(file);
+      const imageExtension = file.originalname.split(".").pop();
+      const imageName = `${Date.now()}.${imageExtension}`;
+      // const imagePath =
+      //  __dirname + `./../api/static/diplomasImage/${imageName}`;
+      const imagePath = path.join(
+        __dirname,
+        "..",
+        "api",
+        "static",
+        "diplomasImage",
+        imageName
+      );
+      // Move the original image file
+      console.log(imagePath, __dirname);
 
-router.post('/upload', Upload, async (req, res) => {
-    const { files } = req;
-    const id = req.body.id
-    
-    console.log(id);
+      fs.renameSync(file.path, imagePath);
 
-    try {
-      // Store the image URLs in separate arrays
-      const imageUrls = [];
-      for (const file of files) {
-        const imageExtension = file.originalname.split('.').pop();
-        const imageName = `image_${Date.now()}.${imageExtension}`;
-        const imagePath = __dirname + `./../api/static/diplomasImage/${imageName}`;
-        
-  
-        // Resize and compress the image
-        // await sharp(file.path)
-        //   .jpeg({ quality: 80 })
-        //   .toFile(imagePath);
-  
-        // Move the original image file
-        fs.renameSync(file.path, imagePath);
-  
-        // Generate the URLs for the images
-        const imageUrl = `/diplomas/images/${imageName}`;
-        
-        imageUrls.push(imageUrl);
-        
-      }
-  
-      // Insert the arrays of image URLs into the PostgreSQL table
-      const query = 'UPDATE diplomas SET images = $1 WHERE id =$2';
-      await pool.query(query, [imageUrls, id]);
-  
-      res.status(200).send('Images uploaded and stored successfully');
-    } catch (error) { 
-      console.error('Error uploading and storing images:', error);
-      res.status(500).send('Error uploading and storing images');
+      // Generate the URLs for the images
+      const imageUrl = `/diplomas/images/${imageName}`;
+
+      imageUrls.push(imageUrl);
     }
+
+    // Insert the arrays of image URLs into the PostgreSQL table
+    const query = "UPDATE diplomas SET images = $1 WHERE id =$2";
+    await pool.query(query, [imageUrls, id]);
+
+    res.status(200).send("Images uploaded and stored successfully");
+  } catch (error) {
+    console.error("Error uploading and storing images:", error);
+    res.status(500).send("Error uploading and storing images");
+  }
 });
 
-module.exports = router
+module.exports = router;

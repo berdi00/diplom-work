@@ -1,40 +1,46 @@
-import React from "react";
-import { Layout, Menu, theme } from "antd";
+import React, { useEffect } from "react";
+import { Layout, Menu } from "antd";
 import { ShopTwoTone, TagTwoTone } from "@ant-design/icons";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 const { Header } = Layout;
 const AdminLayout = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate("diploma");
+  }, []);
   return (
     <Layout>
       <Header
         style={{
           padding: 0,
-          background: colorBgContainer,
+          position: "fixed",
+          width: "90%",
+          zIndex: 9000,
         }}
       >
         <Menu
-          theme="dark"
+          theme="light"
           mode="horizontal"
-          defaultSelectedKeys={["products"]}
+          defaultSelectedKeys={["diploma"]}
+          onSelect={({ key }) => navigate(key)}
           style={{ display: "flex", justifyContent: "center" }}
           items={[
             {
-              key: "products",
+              key: "diploma",
               icon: React.createElement(ShopTwoTone),
-              label: "Önümler",
+              label: "Diploma",
             },
             {
-              key: "categories",
+              key: "students",
               icon: React.createElement(TagTwoTone),
-              label: "Kategoriyalar",
+              label: "Students",
             },
           ]}
         />
       </Header>
-      <Outlet />
+      <div style={{ marginTop: "70px", padding: 10 }}>
+        <Outlet />
+      </div>
     </Layout>
   );
 };
