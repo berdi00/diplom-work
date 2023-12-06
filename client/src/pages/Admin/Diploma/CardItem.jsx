@@ -1,9 +1,8 @@
-import { Carousel, Row, Col, Image, Card, Button, Space, Divider } from "antd";
+import { Carousel, Row, Col, Image, Card, Button, Divider } from "antd";
 import { DeleteTwoTone, RightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useAsyncFn } from "../../../hooks/useAsync";
 import { deleteDiploma } from "../../../services/requests";
-const baseURL = "http://localhost:8000";
 const CardItem = ({
   id,
   name,
@@ -42,7 +41,11 @@ const CardItem = ({
           <Carousel autoplay style={{ width: "100%" }}>
             {images?.length > 0 ? (
               images.map((val) => (
-                <Image key={val} width="100%" src={baseURL + val} />
+                <Image
+                  key={val}
+                  width="100%"
+                  src={import.meta.env.VITE_SERVER_URL.toString() + val}
+                />
               ))
             ) : (
               <Image width="100%" src="/cat.jpeg" />

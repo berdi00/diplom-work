@@ -42,17 +42,19 @@ const StudentCard = ({
           }
         />,
       ]}
-      style={{ width: 240, marginBottom: "1.5rem" }}
+      style={{ width: 220, marginBottom: "1.5rem" }}
       cover={
-        <img
-          alt="example"
-          style={{ height: "200px", width: "100%" }}
-          src={
-            image
-              ? imgURL
-              : "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          }
-        />
+        <div style={{ height: "250px", width: "220px" }}>
+          <img
+            alt="example"
+            style={{ height: "100%", width: "100%", objectFit: "contain" }}
+            src={
+              image
+                ? imgURL
+                : "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            }
+          />
+        </div>
       }
     >
       <Meta title={name} description={role} />

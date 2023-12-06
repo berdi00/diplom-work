@@ -1,11 +1,12 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 const { Sider } = Layout;
 
 const LayoutIndex = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider breakpoint="lg" collapsedWidth="0">
@@ -15,6 +16,7 @@ const LayoutIndex = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["/"]}
+          selectedKeys={location.pathname.includes("admin") ? "/admin" : "/"}
           items={[
             {
               key: "/",

@@ -56,8 +56,13 @@ const StudentItem = () => {
       method: "POST",
       body: data,
     })
-      .then(() => {
-        console.log("File Sent Successful");
+      .then((res) => {
+        if (res.ok) {
+          notification.success({
+            message: "Image Upload",
+            description: "Image Successfully Uploaded",
+          });
+        }
       })
       .catch((err) => {
         console.log(err.message);

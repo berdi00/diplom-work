@@ -57,6 +57,10 @@ const deleteStudent = (id) => {
     method: "DELETe",
   });
 };
+
+const getStudentFullDataByBarcodeId = ({ id }) => {
+  return makeRequest(`/students/qr-id/${id}`);
+};
 export {
   getDiplomas,
   getDiploma,
@@ -68,4 +72,5 @@ export {
   createStudent,
   updateStudent,
   deleteStudent,
+  getStudentFullDataByBarcodeId,
 };
