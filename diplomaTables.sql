@@ -6,6 +6,7 @@ CREATE TABLE diplomas (
 	"name" VARCHAR,
 	description VARCHAR,
 	images TEXT [],
+	file_path TEXT [],
 	deadline VARCHAR
 );
 
