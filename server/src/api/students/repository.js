@@ -18,7 +18,8 @@ const retrieveStudentByQrId = `
                             s.diplom_id, 
                             d.name as diplom_name, 
                             d.description, 
-                            d.images as diplom_images, 
+                            d.images as diplom_images,
+                            d.file_path, 
                             d.deadline 
                                 from students s LEFT JOIN diplomas d ON s.diplom_id = d.id WHERE s.qr_id = $1`
 
