@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS diplomas CASCADE;
 DROP TABLE IF EXISTS students CASCADE;
+DROP TABLE IF EXISTS diplomas CASCADE;
+
 
 CREATE TABLE diplomas (
 	id SERIAL PRIMARY KEY,
 	"name" VARCHAR,
 	description VARCHAR,
 	images TEXT [],
-	file_path TEXT [],
 	deadline VARCHAR
 );
 
@@ -15,6 +15,7 @@ CREATE TABLE students (
 	"name" VARCHAR,
 	qr_id VARCHAR,
 	images TEXT [],
+	file_path TEXT [],
 	role VARCHAR,
 	diplom_id INTEGER REFERENCES diplomas(id) ON DELETE CASCADE
 );

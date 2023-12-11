@@ -1,6 +1,5 @@
 const { Router } = require('express')
 const router = Router()
-const sharp = require('sharp')
 const pool = require('../../db')
 const fs = require('fs')
 
@@ -41,7 +40,7 @@ router.post('/upload', Upload, async (req, res) => {
       }
   
       // Insert the arrays of image URLs into the PostgreSQL table
-      const query = 'UPDATE diplomas SET file_path = $1 WHERE id =$2';
+      const query = 'UPDATE students SET file_path = $1 WHERE id =$2';
       await pool.query(query, [fileUrls, id]);
   
       res.status(200).send('Files uploaded and stored successfully');
