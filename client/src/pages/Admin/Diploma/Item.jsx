@@ -33,7 +33,7 @@ const Item = () => {
       data.append("images", file);
     }
 
-    fetch(`http://localhost:8000/diplomas/upload/${diplomId}`, {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/diplomas/upload/${diplomId}`, {
       method: "POST",
       body: data,
     })

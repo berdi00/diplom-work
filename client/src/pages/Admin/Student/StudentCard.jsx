@@ -1,4 +1,8 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  FileWordOutlined,
+} from "@ant-design/icons";
 import { Card } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAsyncFn } from "../../../hooks/useAsync";
@@ -14,11 +18,13 @@ const StudentCard = ({
   image,
   studentlar,
   setStudentLar,
+  file_path,
 }) => {
   const imgURL = import.meta.env.VITE_SERVER_URL + image;
   console.log(diplom_id);
   const navigate = useNavigate();
   const { execute } = useAsyncFn(deleteStudent);
+  console.log(file_path, "file path");
   return (
     <Card
       key={id}
@@ -57,7 +63,22 @@ const StudentCard = ({
         </div>
       }
     >
-      <Meta title={name} description={role} />
+      <Meta
+        title={name}
+        description={role}
+        avatar={
+          file_path ? (
+            <FileWordOutlined
+              style={{ fontSize: "1.2rem" }}
+              onClick={() =>
+                (window.location.href = `${
+                  import.meta.env.VITE_SERVER_URL
+                }${file_path}`)
+              }
+            />
+          ) : null
+        }
+      />
     </Card>
   );
 };

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Button, Form, Input, Row, Select, notification } from "antd";
+import { Button, Form, Input, Row, Select, Space, notification } from "antd";
 import { useEffect, useState } from "react";
 import { useAsyncFn } from "../../../hooks/useAsync";
 import {
@@ -52,15 +52,43 @@ const StudentItem = () => {
       data.append("images", file);
     }
 
-    fetch(`http://localhost:8000/students/upload/${studentId}`, {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/students/upload/${studentId}`, {
       method: "POST",
       body: data,
     })
       .then((res) => {
         if (res.ok) {
+          console.log(res, "response image upload");
           notification.success({
             message: "Image Upload",
             description: "Image Successfully Uploaded",
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const fileChangeHandler2 = (e) => {
+    const data = new FormData();
+    for (const file of e.target.files) {
+      data.append("file", file);
+    }
+
+    fetch(
+      `${import.meta.env.VITE_SERVER_URL}/diplomas/files/upload/${studentId}`,
+      {
+        method: "POST",
+        body: data,
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          console.log(res, "response image upload");
+          notification.success({
+            message: "File Upload",
+            description: "File Successfully Uploaded",
           });
         }
       })
@@ -132,15 +160,26 @@ const StudentItem = () => {
             options={keyValued}
           />
         </Form.Item>
-        <label className="uploadImage">
-          <input
-            accept="image/png, image/jpg, image/gif, image/jpeg"
-            style={{ display: "none" }}
-            type="file"
-            multiple
-            onChange={fileChangeHandler}
-          />
-        </label>
+        <Space>
+          <label className="uploadImage">
+            <input
+              accept="image/png, image/jpg, image/gif, image/jpeg"
+              style={{ display: "none" }}
+              type="file"
+              multiple
+              onChange={fileChangeHandler}
+            />
+          </label>
+          <label className="uploadFile">
+            <input
+              accept=".pdf"
+              style={{ display: "none" }}
+              type="file"
+              multiple
+              onChange={fileChangeHandler2}
+            />
+          </label>
+        </Space>
         <Form.Item>
           <Row justify="center">
             <Button size="large" type="primary" htmlType="submit">

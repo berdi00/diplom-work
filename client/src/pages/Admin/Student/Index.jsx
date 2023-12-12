@@ -30,6 +30,7 @@ const Student = () => {
               name={item.name}
               role={item.role}
               diplom_id={item.diplom_id}
+              file_path={item.file_path}
             />
           </Col>
         ))}
